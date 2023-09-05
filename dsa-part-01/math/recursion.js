@@ -44,3 +44,5 @@ function factorial(n) {
 }
 
 console.log(factorial(0)); // 120
+
+// Time complexity => O(n)
