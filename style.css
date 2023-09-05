@@ -1,0 +1,43 @@
+*{
+    padding : 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: azure;
+}
+
+.quotes-block{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.quotes-block blockquote  {
+    font-size: 40px;
+}
+
+.author-block{
+    margin-top: 10px;
+    display: flex;
+    align-items:center;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.author-image{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.author{
+    text-align: end;
+    font-size: 17px;
+    margin-top: 4px;
+}

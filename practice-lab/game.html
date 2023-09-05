@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <style>
+        body {
+            background-color: rgb(43, 44, 41);
+            color: white;
+        }
+
+        .game__container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .grid>.rows {
+            display: flex;
+            gap: 10px;
+
+        }
+
+        .matched-card {
+            background-color: green !important;
+        }
+
+        .grid>.rows>.card {
+            padding: 20px;
+            background-color: black;
+            font-size: 20px;
+            cursor: pointer;
+            height: 40px;
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game__container">
+        <div class="grid">
+        </div>
+    </div>
+
+    <script>
+        const grids = document.querySelector('.grid');
+        const grid2D = [
+            [0, 3, 5, 1],
+            [1, 2, 2, 4],
+            [4, 3, 5, 0]
+        ];
+
+        const newGrid2D = new Array(grid2D.length).fill('').map(item => new Array(grid2D[0].length).fill(!true))
+        
+        let previousClicked;
+        document.addEventListener('DOMContentLoaded', () => {
+
+            grid2D.map((grid, gridIdx) => {
+                const rows = document.createElement('div');
+                rows.classList.add('rows')
+                grid.map((row, rowIdx) => {
+
+                    const card = document.createElement('div');
+                    card.addEventListener('click', function () {
+                     
+                        newGrid2D[gridIdx][rowIdx] = true;
+
+                        let clickedNumber = grid2D[gridIdx][rowIdx];
+                        card.classList.add('matched-card')
+                        card.textContent = newGrid2D[gridIdx][rowIdx] ? row : ''
+
+                        if (previousClicked || previousClicked === 0) {
+
+                            if (previousClicked !== clickedNumber) {
+                                card.classList.remove('matched-card');
+
+                                setTimeout(() => {
+                                    newGrid2D[gridIdx][rowIdx] = false
+                                    card.textContent = newGrid2D[gridIdx][rowIdx] ? '' : ''
+                                }, 1000);
+                                return;
+                            }
+                            card.classList.add('matched-card')
+                            previousClicked = undefined;
+                            return;
+                        } else {
+                            previousClicked = clickedNumber
+                        }
+                    })
+                    card.classList.add('card');
+                   
+                    rows.appendChild(card);
+                })
+                grids.appendChild(rows)
+            })
+        })
+
+
+
+    </script>
+</body>
+
+</html>
