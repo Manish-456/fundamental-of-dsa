@@ -17,3 +17,5 @@ function binarySearch(arr, target, start, end) {
 }
 let arr = [-2, 4, 6, 8, 9, 12, 24];
 console.log(recursiveBinarySearch(arr, 9));
+
+// time complexity => O(logn) fn binarySearch has been calling again and again but the input size does reduce by the half
