@@ -1,0 +1,100 @@
+
+        :root {
+            --bg: #181818;
+            /* Container */
+            --bg-container: whitesmoke;
+            /* Button */
+            --primary: rgb(0, 92, 200);
+
+            /* Text-color */
+            --text-color: #3D3E3F;
+        }
+
+        body {
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: var(--bg-container);
+            max-width: 30%;
+            width: 100%;
+            margin: 0 auto;
+            border: 10px;
+        }
+
+        .header {
+            padding: 10px;
+        }
+
+        .header .title {
+            font-size: 24px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .password__options__container {
+            padding: 0 20px;
+        }
+
+        .password_options {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .pwd__range {
+            width: 100%;
+            height: 20px;
+        }
+
+        .value {
+            display: flex;
+            justify-content: space-between;
+        }
+        .options_grid {
+            display: grid;
+            width: 100%;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+            .cols {
+                margin-bottom: 10px;
+            }
+        .cols label{
+            font-size: 18px;
+            font-weight: 500;
+        }
+        #generate_btn {
+            background-color: var(--primary);
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            width: 100%;
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+
+        #min_length, #max_length {
+            font-size: 20px;
+        }
+        .password_result_container{
+            display: flex;
+            gap : 10px;
+            align-items: center;
+            width: 100%;
+            
+        }
+        .password__options__container #pwd_result{
+            width: 50%;
+        }
+        .copy {
+          margin-left: auto;
+        }
+
