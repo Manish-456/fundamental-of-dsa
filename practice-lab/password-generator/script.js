@@ -26,6 +26,8 @@ function passwordGenerator() {
   );
   if (password.length > 0) {
     pwd_result.value = password;
+     let sound = new SpeechSynthesisUtterance(password);
+     speechSynthesis.speak(sound)
   }
 }
 
