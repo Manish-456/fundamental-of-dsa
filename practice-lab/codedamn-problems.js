@@ -131,3 +131,35 @@ const truncateSentence = function (s, k) {
 }
 
 console.log(truncateSentence("Hello I love you Rusuna", 4));
+
+var prefixCount = function (words, pref) {
+  let count = 0;
+for(let word of words){
+  if(word.startsWith(pref)){
+      count ++;
+  }
+}
+return count;
+}
+
+console.log(prefixCount(  ["pay","attention","practice","attend"],"at"))
+
+const jsonStringify = function (object) {
+const type = typeof object
+
+if (type === 'string') {
+  return `"${object}"`
+} else if (type === 'boolean' || type === 'number' || object === null) {
+  return String(object)
+} else if (Array.isArray(object)) {
+  const arrayElements = object.map((element) => jsonStringify(element))
+  return `[${arrayElements.join(',')}]`
+} else {
+  const objectEntries = Object.entries(object).map(([key, value]) => {
+    return `"${key}":${jsonStringify(value)}`
+  })
+  return `{${objectEntries.join(',')}}`
+}
+}
+
+console.log(jsonStringify({"a":"str","b":-12,"c":true,"d":null}))
