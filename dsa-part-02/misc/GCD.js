@@ -1,10 +1,10 @@
-function gcd(a, b){
-while(b !== 0){
-    const temp = b;
-    b= a % b;
+function gcd(a, b) {
+  while (b !== 0) {
+    let temp = b;
+    b = a % b;
     a = temp;
-}
-return a;
+  }
+  return a;
 }
 
 const num1 = 48;
@@ -12,3 +12,4 @@ const num2 = 18;
 const result = gcd(num1, num2);
 console.log(`The GCD of ${num1} and ${num2} is ${result}`);
 
+// Time-Complexity => O(log(min(mn)))

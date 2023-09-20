@@ -163,3 +163,56 @@ if (type === 'string') {
 }
 
 console.log(jsonStringify({"a":"str","b":-12,"c":true,"d":null}))
+
+function countWords(word1, word2){
+  let map1 = new Map();
+  let map2 = new Map();
+  let totalCount = 0;
+
+  for(let word of words1){
+    map1.set(word, (map1.get(word) || 0) + 1)
+  }
+  for(let word of words2){
+    map2.set(word, (map2.get(word) || 0) + 1)
+  }
+
+  let iterator = map1.keys();
+  for(let word of iterator){
+  if(map1.get(word) === 1 && map2.get(word) === 1){
+    totalCount ++;
+  }
+  }
+ return totalCount;
+}
+let words1 = ["leetcode", "is", "amazing", "as", "is"]
+let words2 = ["amazing", "leetcode", "is"]
+countWords(words1, words2); // expected output => 2;
+
+
+//  Fair candy swap
+
+// you will be solving a problem related to Alice and Bob's fair candy swap. The main objective is to implement a function fairCandySwap that takes two integer arrays, aliceSizes and bobSizes, representing the number of candies in each box that Alice and Bob have, respectively. Your task is to find an integer array answer where answer[0] corresponds to the number of candies in the box that Alice must exchange, and answer[1] denotes the number of candies in the box that Bob must exchange. After the exchange, both Alice and Bob should have the same total amount of candy. You can assume that at least one valid answer exists for the given input.
+
+// Examples
+/*
+Input: aliceSizes = [1, 1], bobSizes = [2, 2] Output: [1, 2]
+
+Input: aliceSizes = [1, 2], bobSizes = [2, 3] Output: [1, 2] or [2, 3]
+
+Input: aliceSizes = [2], bobSizes = [1, 3] Output: [2, 3]
+*/
+function fairCandySwap(aliceSizes, bobSizes){
+  let aliceSum = aliceSizes.reduce((a, b) => a + b, 0)
+  let bobSum = bobSizes.reduce((a, b) => a + b, 0)
+  let diff = (bobSum - aliceSum) / 2;
+ 
+  let bobSet = new Set(bobSizes);
+  for(let size of aliceSizes){
+   if(bobSet.has(size + diff)){
+       console.log([size, size + diff])
+   }
+  }
+ 
+ }
+ 
+ fairCandySwap([1,2], [2,3]);

@@ -77,3 +77,5 @@ function copyPassword() {
 }
 
 copy_btn.addEventListener("click", copyPassword);
+
+
