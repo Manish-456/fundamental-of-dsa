@@ -16,85 +16,108 @@
   - Search- to find an element given its value
  */
 
-  // ? LINKED LIST USAGE
+// ? LINKED LIST USAGE
 
-  //* All applications of both stacks and queues are application of linked lists
+//* All applications of both stacks and queues are application of linked lists
 
-  //* Image Viewer
+//* Image Viewer
 
-  class Node {
-    constructor(value){
-        this.value = value;
-        this.next = null; 
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.size = 0;
+  }
+
+  isEmpty() {
+    return this.size === 0;
+  }
+
+  getSize() {
+    return this.size;
+  }
+  // Append the new element at the start does not depend on the how many  element present there in the list => Prepend => O(1)
+  prepend(val) {
+    let node = new Node(val);
+    if (this.isEmpty()) {
+      this.head = node;
+    } else {
+      node.next = this.head;
+      this.head = node;
+    }
+
+    this.size++;
+  }
+
+  append(value) {
+    // We have the while loop so time complexity is O(n)
+    const node = new Node(value);
+    if (this.isEmpty()) {
+      this.head = node;
+    } else {
+      let prev = this.head;
+      while (prev.next) {
+        prev = prev.next;
+      }
+      prev.next = node;
+    }
+    this.size++;
+  }
+
+  insert(value, index) {
+    if (index < 0 || index > this.size) {
+      console.error(
+        `Invalid index. Index should be in the range of 0 & ${this.size}`
+      );
+      return;
+    }
+
+    if (index === 0) {
+      this.prepend(value);
+    } else {
+      const node = new Node(value);
+      let prev = this.head;
+      for (let i = 0; i < index - 1; i++) {
+        prev = prev.next;
+      }
+      node.next = prev.next;
+      prev.next = node;
+      this.size++;
     }
   }
 
-  class LinkedList {
-    constructor(){
-        this.head = null;
-        this.size = 0;
-    }
+  print() {
+    if (this.isEmpty()) {
+      console.log(`List is empty`);
+    } else {
+      let curr = this.head;
+      let listValue = " ";
+      while (curr) {
+        listValue += `${curr.value}, `;
+        curr = curr.next;
+      }
 
-    isEmpty(){
-        return this.size === 0
-    }
-
-    getSize(){
-        return this.size;
-    }
-      // Append the new element at the start does not depend on the how many  element present there in the list => Prepand => O(1)
-    prepand(val){
-        let node = new Node(val)
-        if(this.isEmpty()){
-         this.head = node;
-        }else{
-            node.next = this.head;
-            this.head = node;
-        }
-        
-         this.size ++;
-    }
-
-    append(value){ // We have the while loop so time complexity is O(n)
-        const node = new Node(value);
-        if(this.isEmpty()){
-          this.head = node;
-        }else{
-            let prev = this.head;
-            while(prev.next){
-                prev = prev.next;
-            }         
-            prev.next = node;
-        }
-        this.size ++;
-    }
-
-    print(){
-        if(this.isEmpty()){
-          console.log(`List is empty`);
-        }else {
-            let curr = this.head;
-            let listValue = ' ';
-            while(curr){
-                listValue += `${curr.value}, `
-                curr = curr.next;
-            }
-    
-            console.log(listValue)   
-        }
+      console.log(listValue);
     }
   }
+}
 
-  let linked_list = new LinkedList();
-  linked_list.print()
-  linked_list.append(4)
-  linked_list.append(5)
-  linked_list.append(6)
-   linked_list.print()
-//   linked_list.prepand(5)
+let linked_list = new LinkedList();
+linked_list.print();
+linked_list.append(4);
+linked_list.append(5);
+linked_list.insert(6, 1);
+linked_list.print();
+//   linked_list.prepend(5)
 
-//   linked_list.prepand(25)
-//   linked_list.prepand(30)
-//   linked_list.prepand(35)
-//   linked_list.prepand(40)
+//   linked_list.prepend(25)
+//   linked_list.prepend(30)
+//   linked_list.prepend(35)
+//   linked_list.prepend(40)
 //   linked_list.print()
