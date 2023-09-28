@@ -92,6 +92,28 @@ class LinkedList {
     }
   }
 
+  
+  remove(idx){
+    if(idx < 0 || idx >= this.size){
+     console.error(`Removal Error: Invalid index. Index should be between the -1 & ${this.size + 1}`);
+      return 
+    }
+    let removedNode;
+    if(idx === 0){
+     removedNode = this.head;
+     this.head = this.head.next
+   }else{
+      let prev = this.head;
+      for(let i = 0; i < idx - 1; i++){
+        prev = prev.next
+      }
+      removedNode = prev.next;
+      prev.next = removedNode.next
+ 
+     }
+     this.size --;
+   }
+
   print() {
     if (this.isEmpty()) {
       console.log(`List is empty`);
