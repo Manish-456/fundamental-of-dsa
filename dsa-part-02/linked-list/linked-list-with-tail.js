@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class LinkedListWithTail {
+class LinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -91,11 +91,5 @@ class LinkedListWithTail {
   }
 }
 
-let linked_list = new LinkedListWithTail();
-linked_list.append(4);
-linked_list.append(5);
-linked_list.append(6);
-linked_list.removeFromFront()
-linked_list.removeFromTail()
-linked_list.removeFromTail()
-console.log(linked_list);
+
+module.exports = LinkedList;
