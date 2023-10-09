@@ -70,6 +70,21 @@ class BinarySearchTree {
       }
     }
   }
+
+  search(root, value){
+    if(!root){
+      return false;
+    }else{
+      if(root.value === value){
+        return true;
+      }else if(root.value > value){
+         return this.search(root.left, value);
+      }else{
+        return this.search(root.right, value);
+      }
+      
+    }
+  }
 }
 
 const bst = new BinarySearchTree();
@@ -78,7 +93,9 @@ bst.insert(5)
 bst.insert(12)
 bst.insert(6)
 bst.insert(4)
+console.log(bst.search(bst.root, 19));
 console.log(bst);
+
 
 // 10
 // 5    12
