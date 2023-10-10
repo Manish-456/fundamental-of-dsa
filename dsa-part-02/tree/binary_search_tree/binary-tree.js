@@ -1,5 +1,7 @@
 // ? BINARY TREE
 
+const Queue = require("../../queue/queue");
+
 /* A binary tree is a tree data structure in which each node has at most two children
   They are referred to as left child and right child
 */
@@ -85,16 +87,121 @@ class BinarySearchTree {
       
     }
   }
+
+  //? TREE TRAVERSAL
+/*
+- Visiting every node in the tree
+- A hierarchical data structure like a tree can be traversed in different ways
+  - Depth First Search (DFS)
+  - Breadth First Search (BFS)
+*/
+
+  // ? Depth First Search (DFS)
+/*
+- The DFS algorithm starts at the root node and explores as far as possible along each branch before backtracking
+
+-  Visit the root node, visit all the nodes in the left subtree and visit all the nodes in the right subtree 
+
+- Depending on the order in which we do this, there can be three types of DFS traversals
+
+ - Preorder
+ - Inorder
+ - Postorder
+*/
+
+ // ? Preorder Traversal
+ /*
+  - Read the data of the node
+  - Visit the left subtree
+  - Visit the right subtree
+ */
+
+  preOrder(root){
+    if(root){
+      console.log(root.value);
+      this.preOrder(root.left);
+      this.preOrder(root.right);
+    }
+    
+  }
+
+  // ? inOrder Traversal
+ /*
+ - Visit the left subtree
+  - Read the data of the node
+  - Visit the right subtree
+ */
+  inOrder(root){
+    if(root){
+      this.inOrder(root.left);
+      console.log(root.value);
+      this.inOrder(root.right);
+    }
+  }
+
+  // ? PostOrder Traversal
+ /*
+ - Visit the left subtree
+  - Read the data of the node
+  - Visit the right subtree
+ */
+
+  postOrder(root){
+    if(root){
+      this.postOrder(root.left);
+      this.postOrder(root.right);
+      console.log(root.value);
+    }
+  }
+
+  // ? Breadth First Search (BFS)
+  /*
+  - Explore all nodes at the present depth prior to moving on to the nodes at the next depth level
+  */
+
+  // ? BFS Traversal Approach
+  /*
+   1. Create a queue
+   2. Enqueue the root node
+   3. As long as a node exists in the queue, perform the following operations
+     - Dequeue the node from the front
+     - Read the node's value
+     - Enqueue the node's left child if it exists
+     - Enqueue the node's right child if it exists
+  */
+
+     levelOrder(){
+      
+      const queue = new Queue();
+      queue.enqueue(this.root);
+      while(queue.size()){
+        let curr = queue.dequeue();
+        console.log(curr.value);
+        if(curr.left){
+          queue.enqueue(curr.left);
+        }
+
+        if(curr.right){
+          queue.enqueue(curr.right);
+        }
+      }
+
+     }
+
 }
 
 const bst = new BinarySearchTree();
 bst.insert(10)
 bst.insert(5)
-bst.insert(12)
-bst.insert(6)
-bst.insert(4)
-console.log(bst.search(bst.root, 19));
-console.log(bst);
+bst.insert(15)
+bst.insert(3)
+bst.insert(7)
+// console.log(bst.search(bst.root, 19));
+console.log(bst.postOrder(bst.root))
+bst.levelOrder()
+// console.log(bst);
+
+
 
 
 // 10

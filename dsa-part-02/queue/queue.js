@@ -79,7 +79,9 @@ class Queue {
     this.items[this.rear++] = element;
   }
   dequeue() {
+    let item = this.items[this.front];
     delete this.items[this.front++];
+    return item;
   }
   peek(){
     return this.items[this.front];
@@ -93,17 +95,5 @@ class Queue {
   }
 }
 
-const queue = new Queue();
-queue.enqueue(3);
-queue.enqueue(4);
-queue.enqueue(5);
-queue.enqueue(6);
-console.log(`PEEK`, queue.peek())
-queue.dequeue();
-console.log(`SIZE`, queue.size())
-queue.print();
-queue.dequeue();
-queue.dequeue();
-queue.dequeue();
-console.log(queue.isEmpty());
+module.exports = Queue;
 
