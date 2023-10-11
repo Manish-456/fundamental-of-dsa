@@ -171,7 +171,6 @@ class BinarySearchTree {
   */
 
      levelOrder(){
-      
       const queue = new Queue();
       queue.enqueue(this.root);
       while(queue.size()){
@@ -188,6 +187,23 @@ class BinarySearchTree {
 
      }
 
+     min(root){
+      if(!root.left){
+        return root.value;
+      }else{
+       return this.min(root.left)
+      }
+     }
+
+     max(root){
+      if(!root.right){
+        return root.value;
+      }else{
+       return this.max(root.right)
+      }
+     }
+
+
 }
 
 const bst = new BinarySearchTree();
@@ -197,9 +213,10 @@ bst.insert(15)
 bst.insert(3)
 bst.insert(7)
 // console.log(bst.search(bst.root, 19));
-console.log(bst.postOrder(bst.root))
-bst.levelOrder()
+// console.log(bst.postOrder(bst.root))
+// bst.levelOrder()
 // console.log(bst);
+console.log(bst.min(bst.root));
 
 
 
