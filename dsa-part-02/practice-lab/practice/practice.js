@@ -446,102 +446,220 @@ class LinkedListWithTail {
   }
 }
 
-
 class Stack {
-  constructor(){
+  constructor() {
     this.items = [];
   }
-  
-  isEmpty(){
-    return this.items.length < 1
+
+  isEmpty() {
+    return this.items.length < 1;
   }
 
-  getSize(){
+  getSize() {
     return this.items.length;
   }
 
-  push(element){
+  push(element) {
     this.items.push(element);
   }
 
-  pop(){
+  pop() {
     return this.items.pop();
   }
 
-  print(){
-    for(let item of this.items){
+  print() {
+    for (let item of this.items) {
       console.log(item);
     }
   }
 }
 
-
 class CircularQueue {
- constructor(capacity){
-   this.items = new Array(capacity);
-   this.capacity = capacity;
-   this.front = -1;
-   this.rear = -1;
-   this.size = 0;
- }
-
- isFull(){
-  return this.capacity - this.size === 0;
- }
-
- isEmpty(){
-  return this.size === 0;
- }
-
- getSize(){
-  return this.capacity - this.size;
- }
-
- enqueue(element){
-  if(this.isFull()){
-    return `Queue is already full`;
+  constructor(capacity) {
+    this.items = new Array(capacity);
+    this.capacity = capacity;
+    this.front = -1;
+    this.rear = -1;
+    this.size = 0;
   }
-  this.rear = (this.rear + 1) % this.capacity;
-  this.items[this.rear] = element;
 
-  if(this.front === -1){
-    this.front = this.rear;
+  isFull() {
+    return this.capacity - this.size === 0;
   }
-  this.size++
- }
 
- dequeue(){
-  if(this.isEmpty()){
-     return `Queue is empty`
-  }else{
-    let item = this.items[this.front];
-    delete this.items[this.front];
-    this.front = (this.front + 1) % this.capacity;
-    if(this.isEmpty()){
-      this.front = -1;
-      this.rear = -1;
+  isEmpty() {
+    return this.size === 0;
+  }
+
+  getSize() {
+    return this.capacity - this.size;
+  }
+
+  enqueue(element) {
+    if (this.isFull()) {
+      return `Queue is already full`;
     }
-    this.size --;
-    return item;
-  }
-}
+    this.rear = (this.rear + 1) % this.capacity;
+    this.items[this.rear] = element;
 
-peek(){
-  return this.items[this.front]
-}
-
-print(){
-  if(this.isEmpty()){
-    console.log("Queue is empty");
-  }else{
-    let i;
-    let str = "";
-    for(i = this.front; i !== this.rear; i = (i + 1) % this.capacity){
-        str += this.items[i] + " "
+    if (this.front === -1) {
+      this.front = this.rear;
     }
+    this.size++;
+  }
 
-    str += this.items[i]
-    console.log(str);
+  dequeue() {
+    if (this.isEmpty()) {
+      return `Queue is empty`;
+    } else {
+      let item = this.items[this.front];
+      delete this.items[this.front];
+      this.front = (this.front + 1) % this.capacity;
+      if (this.isEmpty()) {
+        this.front = -1;
+        this.rear = -1;
+      }
+      this.size--;
+      return item;
+    }
+  }
+
+  peek() {
+    return this.items[this.front];
+  }
+
+  print() {
+    if (this.isEmpty()) {
+      console.log("Queue is empty");
+    } else {
+      let i;
+      let str = "";
+      for (i = this.front; i !== this.rear; i = (i + 1) % this.capacity) {
+        str += this.items[i] + " ";
+      }
+
+      str += this.items[i];
+      console.log(str);
+    }
   }
 }
+
+// ? Searching algorithm
+function linearSearch(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === target) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// ? O(n) => Worst case scenario : Linear time complexity
+
+function binarySearch(arr, target) {
+  let start = 0;
+  let end = arr.length - 1;
+
+  while (start <= end) {
+    let mid = Math.floor((start + end) / 2);
+    if (arr[mid] === target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      start = mid + 1;
+    } else {
+      end = mid - 1;
+    }
+  }
+  return -1;
+}
+
+function recursiveBinarySearch(arr, target) {
+  return search(arr, target, 0, arr.length - 1);
+}
+
+function search(arr, target, start, end) {
+  if (start > end) {
+    return -1;
+  }
+  let mid = Math.floor((start + end) / 2);
+  if (arr[mid] === target) {
+    return mid;
+  } else if (arr[mid] < target) {
+    return search(arr, target, mid + 1, end);
+  } else {
+    return search(arr, target, start, mid - 1);
+  }
+}
+
+// bubbleSort(arr);
+// let result = recursiveBinarySearch(arr, 50);
+// console.log(result);
+
+//? Sorting algorithm
+function bubbleSort(arr) {
+  let swapped;
+  do {
+    swapped = false;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > arr[i + 1]) {
+        let temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+        swapped = true;
+      }
+    }
+  } while (swapped);
+}
+
+function mergeSort(arr) {
+  if (arr.length < 2) return arr;
+  const mid = Math.floor(arr.length / 2);
+  const leftArr = arr.slice(0, mid);
+  const rightArr = arr.slice(mid);
+  return merge(mergeSort(leftArr), mergeSort(rightArr));
+}
+
+function merge(leftArr, rightArr) {
+  let sortedArr = [];
+  while (leftArr.length && rightArr.length) {
+    if (leftArr[0] > rightArr[0]) {
+      sortedArr.push(rightArr.shift());
+    } else {
+      sortedArr.push(leftArr.shift());
+    }
+  }
+  return [...sortedArr, ...leftArr, ...rightArr];
+}
+
+
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let j = i - 1;
+    let numToSort = arr[i];
+    while (j >= 0 && arr[j] > numToSort) {
+      arr[j + 1] = arr[j];
+      j --;
+    }
+    arr[j + 1] = numToSort;
+  }
+  return arr;
+}
+
+let arr = [10, 14, 28, 11];
+let result = quickSort(arr);
+console.log(result);
+
+function quickSort(arr){
+  if(arr.length < 2) return arr;
+  let pivot = arr[arr.length - 1];
+  let leftArr = [];
+  let rightArr = [];
+  for (let i = 0; i < arr.length - 1; i++) {
+         if(arr[i] < pivot){
+          leftArr.push(arr[i]);
+         }else{
+          rightArr.push(arr[i]);
+         }
+  };
+  return [...quickSort(leftArr), pivot, ...quickSort(rightArr)] 
 }
