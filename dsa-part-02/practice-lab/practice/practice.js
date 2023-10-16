@@ -631,14 +631,13 @@ function merge(leftArr, rightArr) {
   return [...sortedArr, ...leftArr, ...rightArr];
 }
 
-
 function insertionSort(arr) {
   for (let i = 1; i < arr.length; i++) {
     let j = i - 1;
     let numToSort = arr[i];
     while (j >= 0 && arr[j] > numToSort) {
       arr[j + 1] = arr[j];
-      j --;
+      j--;
     }
     arr[j + 1] = numToSort;
   }
@@ -649,17 +648,108 @@ let arr = [10, 14, 28, 11];
 let result = quickSort(arr);
 console.log(result);
 
-function quickSort(arr){
-  if(arr.length < 2) return arr;
+function quickSort(arr) {
+  if (arr.length < 2) return arr;
   let pivot = arr[arr.length - 1];
   let leftArr = [];
   let rightArr = [];
   for (let i = 0; i < arr.length - 1; i++) {
-         if(arr[i] < pivot){
-          leftArr.push(arr[i]);
-         }else{
-          rightArr.push(arr[i]);
-         }
-  };
-  return [...quickSort(leftArr), pivot, ...quickSort(rightArr)] 
+    if (arr[i] < pivot) {
+      leftArr.push(arr[i]);
+    } else {
+      rightArr.push(arr[i]);
+    }
+  }
+  return [...quickSort(leftArr), pivot, ...quickSort(rightArr)];
 }
+
+//? Graph
+
+class Graph {
+  constructor() {
+    this.adjacencyList = {};
+  }
+
+  addVertex(vertex) {
+    if (!this.adjacencyList[vertex]) {
+      this.adjacencyList[vertex] = new Set();
+    }
+  }
+
+  addEdges(vertex1, vertex2) {
+    if (!this.adjacencyList[vertex1]) {
+      this.addVertex(vertex1);
+    }
+
+    if (!this.adjacencyList[vertex2]) {
+      this.addVertex(vertex2);
+    }
+
+    this.adjacencyList[vertex1].add(vertex2);
+    this.adjacencyList[vertex2].add(vertex1);
+  }
+
+  hasEdges(vertex1, vertex2) {
+    return (
+      this.adjacencyList[vertex1].has(vertex2) &&
+      this.adjacencyList[vertex2].has(vertex1)
+    );
+  }
+
+  removeEdge(vertex1, vertex2){
+     this.adjacencyList[vertex1].delete(vertex2);
+     this.adjacencyList[vertex2].delete(vertex1);
+  }
+
+  removeVertex(vertex){
+    if(!this.adjacencyList[vertex]){
+      return;
+    }
+
+    for(let adjacentVertex of this.adjacencyList[vertex]){
+      this.removeEdge(adjacentVertex, vertex);
+    }
+
+    delete this.adjacencyList[vertex];
+  }
+
+  DFS(start){
+    const visited = new Set();
+    const visitedNode = [];
+
+    const recursiveDFS = (node) => {
+      if(visited.has(node)){
+        return;
+      }
+
+      visited.add(node);
+      visitedNode.push(node);
+
+      for(let vertex of this.adjacencyList[node]){
+        recursiveDFS(vertex);
+      }
+    }
+
+    recursiveDFS(start);
+    return visitedNode
+  }
+
+  display() {
+    for (let vertex in this.adjacencyList) {
+      console.log(vertex, " -> ", [...this.adjacencyList[vertex]]);
+    }
+  }
+}
+
+const graph = new Graph();
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+
+graph.addEdges("A", "B");
+graph.addEdges("B", "C");
+// graph.removeEdge("B", "C")
+// graph.removeVertex("A")
+// console.log(graph.hasEdges("A", "C"))
+// graph.display();
+console.log(graph.DFS("C"))
