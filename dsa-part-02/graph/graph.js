@@ -53,6 +53,31 @@ class Graph {
     }
   }
 
+  // Implemented DFS
+  DFS(start){
+    const visited = new Set();
+    const visitedNode = [];
+
+    const  recursiveDFS = (node) => {
+         if(visited.has(node)){
+           return;
+         }
+
+         visited.add(node);
+         visitedNode.push(node);
+           
+         for(let c_node of this.adjacencyList[node]){
+         
+            recursiveDFS(c_node)
+         }
+    }
+    
+    recursiveDFS(start)
+    return visitedNode;
+  }  
+
+
+
 }
 
 const graph = new Graph();
